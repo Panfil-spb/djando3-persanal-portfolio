@@ -1,0 +1,45 @@
+{% extends 'base/../../../portfolio/templates/portfolio/base.html' %}
+{% block content %}
+
+    <div class="conteiner w-50 mx-auto">
+        <h3 >Андреем написано статей: {{ count_posts }}   {{ count_page }} </h3>
+    </div>
+
+
+        {% for post in posts %}
+            <div class="conteiner w-50 mx-auto">
+            <div class="card md-5" style="width: 50rem;">
+              <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ post.date|date:'d.m.Y'  }}</h6>
+                <p class="card-text">{{ post.text|striptags|truncatechars:100 }}</p>
+                <a href="{% url 'blog:detail' post.id %}" class="btn btn-primary card-link ">Читать</a>
+              </div>
+            </div>
+            </div>
+            <br>
+        {% endfor %}
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+
+        <li class="page-item">
+          <a class="page-link {% if prev == page %} disabled {% endif %}" href="?page={{ prev }}" aria-label="Previous">
+                <span aria-hidden="false">&laquo;</span>
+          </a>
+        </li>
+
+        {% for num in page_range %}
+            <li class="page-item {% if num == page %}active{% endif %}"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+        {% endfor %}
+
+        <li class="page-item">
+              <a class="page-link {% if next == page %} disabled {% endif %}" href="?page={{ next }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+        </li>
+
+      </ul>
+    </nav>
+
+{% endblock %}

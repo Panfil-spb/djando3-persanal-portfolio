@@ -1,0 +1,36 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+{% load static %}
+
+    <div class="row justify-content-center my-3">
+        <div class="col-5">
+            <img src="{% static 'portfolio/resum_photo.jpg' %}" class="img-fluid">
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-3">
+        <div class="col-md-9 text-center">
+            <h1 class="font-weight-bold">Всем привет, меня зовут Андрей и я начинающий бэкенд-разработчик из Спб. Для начала я сделал этот сайт портфолио для тренировки.</h1>
+        </div>
+    </div>
+
+    <h2 class="mt-5">Портфолио</h2>
+    <hr>
+
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-lg-4 col-md-6">
+            {% if project.url %}
+                <a href="{{ project.url }}">
+                    <img src="{{ project.image.url }}" class="img-fluid mb-2">
+                </a>
+            {% else %}
+                <img src="{{ project.image.url }}" class="img-fluid mb-2">
+            {% endif %}
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
